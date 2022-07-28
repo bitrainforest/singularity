@@ -39,6 +39,14 @@ export interface GenerateCarOutput {
   DataCid: string,
   CidMap: CidMapType
 }
+export interface GenerateCarOutputBrf {
+  Ipld: IpldNode,
+  PieceSize: number,
+  PieceCid: string,
+  DataCid: string,
+  CidMap: CidMapType,
+  Carsize: number
+}
 
 export default class DealPreparationWorker extends BaseService {
   private readonly workerId: string;
@@ -323,9 +331,9 @@ export default class DealPreparationWorker extends BaseService {
           return true;
         }
 
-        const output :GenerateCarOutput = JSON.parse(stdout);
-        const carFile = path.join(newGenerationWork.outDir, output.PieceCid + '.car');
-        const carFileStat = await fs.stat(carFile);
+        const output :GenerateCarOutputBrf = JSON.parse(stdout);
+        // const carFile = path.join(newGenerationWork.outDir, output.PieceCid + '.car');
+        // const carFileStat = await fs.stat(carFile);
         const fileMap = new Map<string, FileInfo>();
         const parentPath = tmpDir ?? newGenerationWork.path;
         for (const fileInfo of fileList) {
@@ -357,7 +365,7 @@ export default class DealPreparationWorker extends BaseService {
           dataCid: output.DataCid,
           pieceSize: output.PieceSize,
           pieceCid: output.PieceCid,
-          carSize: carFileStat.size,
+          carSize: output.Carsize,
           $unset: { errorMessage: 1 },
           workerId: null
         }, {
