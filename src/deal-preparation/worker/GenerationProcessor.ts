@@ -193,7 +193,7 @@ export async function processGeneration (
       dataCid: output.DataCid,
       pieceSize: output.PieceSize,
       pieceCid: output.PieceCid,
-      carSize: carFileStat.size,
+      carSize: output.Carsize,
       numOfFiles: generatedFileList.length,
       timeSpentInGenerationMs,
       timeSpendInMovingToTmpdirMs
