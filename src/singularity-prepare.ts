@@ -14,7 +14,11 @@ import GenerateCar from './common/GenerateCar';
 import { getContentsAndGroupings } from './deal-preparation/handler/GetGenerationManifestRequestHandler';
 import { moveFileList, moveS3FileList } from './deal-preparation/worker/MoveProcessor';
 import Logger, { Category } from './common/Logger';
-import { generate, GenerateCarOutput, handleGeneratedFileList } from './deal-preparation/worker/GenerationProcessor';
+import {
+    generate,
+    GenerateCarOutput,
+    handleGeneratedFileList
+} from './deal-preparation/worker/GenerationProcessor';
 import { validateCreatePreparationRequest } from './deal-preparation/handler/CreatePreparationRequestHandler';
 import { ErrorMessage } from './deal-preparation/model/ErrorCode';
 
@@ -88,7 +92,7 @@ program.name('singularity-prepare')
         const output :GenerateCarOutput = JSON.parse(stdout?.toString() ?? '');
         const carFile = path.join(outDir, output.PieceCid + '.car');
         console.log(`Generated a new car ${carFile}`);
-        const carFileStat = await fs.stat(carFile);
+        // const carFileStat = await fs.stat(carFile);
         const fileMap = new Map<string, FileInfo>();
         const parentPath = tmpDir ?? p;
         for (const fileInfo of fileList) {
@@ -101,7 +105,7 @@ program.name('singularity-prepare')
         const result = {
           piece_cid: output.PieceCid,
           payload_cid: output.DataCid,
-          raw_car_file_size: carFileStat.size,
+          raw_car_file_size: output.Carsize,
           dataset: name,
           contents,
           groupings

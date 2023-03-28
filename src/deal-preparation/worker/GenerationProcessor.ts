@@ -42,14 +42,6 @@ export interface GenerateCarOutput {
   PieceSize: number,
   PieceCid: string,
   DataCid: string,
-  CidMap: CidMapType
-}
-
-export interface GenerateCarOutputBrf {
-  Ipld: IpldNode,
-  PieceSize: number,
-  PieceCid: string,
-  DataCid: string,
   CidMap: CidMapType,
   Carsize: number
 }
@@ -122,7 +114,7 @@ export async function processGeneration (
   }
 
   // Parse the output
-  const output: GenerateCarOutputBrf = JSON.parse(stdout?.toString() ?? '');
+  const output: GenerateCarOutput = JSON.parse(stdout?.toString() ?? '');
   // const carFile = path.join(newGenerationWork.outDir, output.PieceCid + '.car');
   // const carFileStat = await fs.stat(carFile);
   const fileMap = new Map<string, FileInfo>();
