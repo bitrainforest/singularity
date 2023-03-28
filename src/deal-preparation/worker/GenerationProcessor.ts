@@ -43,7 +43,7 @@ export interface GenerateCarOutput {
   PieceCid: string,
   DataCid: string,
   CidMap: CidMapType,
-  Carsize: number
+  CarSize: number
 }
 
 export async function processGeneration (
@@ -168,7 +168,7 @@ export async function processGeneration (
     dataCid: output.DataCid,
     pieceSize: output.PieceSize,
     pieceCid: output.PieceCid,
-    carSize: output.Carsize,
+    carSize: output.CarSize,
     $unset: { errorMessage: 1 },
     workerId: null
   }, {
@@ -185,7 +185,7 @@ export async function processGeneration (
       dataCid: output.DataCid,
       pieceSize: output.PieceSize,
       pieceCid: output.PieceCid,
-      carSize: output.Carsize,
+      carSize: output.CarSize,
       numOfFiles: generatedFileList.length,
       timeSpentInGenerationMs,
       timeSpendInMovingToTmpdirMs

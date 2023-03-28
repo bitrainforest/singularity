@@ -105,7 +105,7 @@ program.name('singularity-prepare')
         const result = {
           piece_cid: output.PieceCid,
           payload_cid: output.DataCid,
-          raw_car_file_size: output.Carsize,
+          raw_car_file_size: output.CarSize,
           dataset: name,
           contents,
           groupings
